@@ -1,43 +1,53 @@
 const mongoose = require("mongoose");
-const validator=require('validator');
+const validator = require("validator");
+
 const EmployeeSchema = new mongoose.Schema({
   employee_id: String,
   personal_info: {
-    full_name: { type: String, required: true,lowercase: true,},
-    date_of_birth: { type: Date,required: true,lowercase: true, },
-    gender: { type: String, required: true, lowercase: true,},
+    full_name: { type: String, required: true, lowercase: true },
+    date_of_birth: { type: Date, required: true, lowercase: true },
+    gender: { type: String, required: true, lowercase: true },
     nationality: { type: String, required: true, lowercase: true },
     marital_status: { type: String, required: true, lowercase: true },
     contact_info: {
       address: { type: String, required: true, lowercase: true },
-      phone: { type: Number, required: true,match:[/^(\+\d{1,3}[- ]?)?\d{3,}[- ]?\d{3,}[- ]?\d{4}$/,'Please Enter a valid Number']},
-      email:{ type:String, required:true,unique:true,
-      validate(value)
-      {
-        if(!validator.isEmail(value))
-        {
-          throw new Error("email is invalid");
-        }
-      }
+      phone: {
+        type: Number,
+        required: true,
+        match: [
+          /^(\+\d{1,3}[- ]?)?\d{3,}[- ]?\d{3,}[- ]?\d{4}$/,
+          "Please Enter a valid Number",
+        ],
+      },
+      email: {
+        type: String,
+        required: true,
+        unique: true,
+        validate(value) {
+          if (!validator.isEmail(value)) {
+            throw new Error("email is invalid");
+          }
+        },
       },
     },
   },
   employment_info: {
-    date_of_joining: Date,
-    job_title: String,
-    department: String,
-    reporting_manager: String,
-    employment_status: String,
-    work_location: String,
-    employment_type: String,
+    date_of_joining: { type: Date },
+    job_title: { type: String },
+    department: { type: String },
+    reporting_manager: { type: String },
+    employment_status: { type: String },
+    work_location: { type: String },
+    employment_type: { type: String },
   },
+
   compensation_benefits: {
     salary: {
-      basic: Number,
-      allowances: Number,
-      bonuses: Number,
+      basic: { type: Number },
+      allowances: { type: Number },
+      bonuses: { type: Number },
     },
-    pay_frequency: String,
+    pay_frequency: { type: String },
     tax_info: {
       tax_id_number: String,
       withholding_preferences: String,
@@ -88,19 +98,6 @@ const EmployeeSchema = new mongoose.Schema({
       },
     ],
   },
-  documents_certifications: {
-    educational_certificates: [String],
-    professional_licenses: [String],
-    training_certifications: [String],
-    identification_documents: [String],
-  },
-  emergency_contacts: [
-    {
-      name: String,
-      relationship: String,
-      phone: String,
-    },
-  ],
   work_history: [
     {
       employer: String,
@@ -122,4 +119,5 @@ const EmployeeSchema = new mongoose.Schema({
     },
   ],
 });
+
 module.exports = mongoose.model("Employee", EmployeeSchema);
