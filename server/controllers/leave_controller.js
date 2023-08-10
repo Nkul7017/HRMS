@@ -21,6 +21,7 @@ const employeeFunctions = {
       throw new Error('Error applying for leave: ' + error.message);
     }
   },
+  
   getLeaveBalance: async (employeeId) => {
     try {
       const employee = await Employee.findById(employeeId);
