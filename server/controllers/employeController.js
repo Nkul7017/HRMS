@@ -1,54 +1,25 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-// const User = require('../models/User'); // Import your User model
+const Employee = require('../model/employeModel'); // Import your Employee model
 
-const userController = {
-  registerUser: async (req, res) => {
-    const { username, password } = req.body;
+const employeeController = {
+  createEmployee: async (req, res) => {
     try {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = await User.create({
-        username,
-        password: hashedPassword,
-      });
-      res.status(201).json({ message: 'User registered successfully', user: newUser });
+      const newEmployee = await Employee.create(req.body);
+      res.status(201).json(newEmployee);
     } catch (error) {
-      res.status(400).json({ message: 'Error registering user' });
+      res.status(400).json({ message: 'Error creating employee', error: error.message});
     }
   },
 
-  loginUser: async (req, res) => {
-    const { username, password } = req.body;
+  getAllEmployees: async (req, res) => {
     try {
-      const user = await User.findOne({ username });
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).json({ message: 'Invalid password' });
-      }
-      const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
-      res.json({ message: 'Login successful', token });
+      const employees = await Employee.find();
+      res.json(employees);
     } catch (error) {
-      res.status(500).json({ message: 'Error logging in' });
+      res.status(500).json({ message: 'Error retrieving employees',error: error.message });
     }
   },
 
-  getUserProfile: async (req, res) => {
-    const userId = req.userId; // Assuming you store user ID in req.userId after authentication middleware
-    try {
-      const user = await User.findById(userId);
-      if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-      }
-      res.json(user);
-    } catch (error) {
-      res.status(500).json({ message: 'Error retrieving user profile' });
-    }
-  },
-
-  // Other user-related controller methods...
+  // Add more controller methods as needed...
 };
 
-module.exports = userController;
+module.exports = employeeController;

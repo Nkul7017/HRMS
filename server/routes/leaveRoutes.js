@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const leaveController = require('../controllers/leaveController');
 
-router.post('/leave/request', authenticateMiddleware, leaveController.createLeaveRequest);
-router.get('/leave/requests', authenticateMiddleware, leaveController.getLeaveRequests);
+// Route to create a new leave entry
+router.post('/leaves', leaveController.createLeaveEntry);
 
+// Route to get a list of all leave entries
+router.get('/leaves', leaveController.getAllLeaveEntries);
 
 module.exports = router;

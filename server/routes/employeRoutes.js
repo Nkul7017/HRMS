@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController');
+const employeeController = require('../controllers/employeController'); // Import your employeeController
 
-router.post('/user/register', userController.registerUser);
-router.post('/user/login', userController.loginUser);
-router.get('/user/profile', authenticateMiddleware, userController.getUserProfile);
+router.post('/employes', employeeController.createEmployee);
+router.get('/employes', employeeController.getAllEmployees);
 
 module.exports = router;
-

@@ -1,26 +1,25 @@
-const Employee = require('../model/employeSchema');
+const Leave = require('../model/leaveModel'); // Import your Leave model
 
 const leaveController = {
-  createLeaveRequest: async (req, res) => {
-    const leaveData = req.body; // Leave request data from the request body
+  createLeaveEntry: async (req, res) => {
     try {
-      const newLeaveRequest = await LeaveRequest.create(leaveData);
-      res.status(201).json(newLeaveRequest);
+      const newLeaveEntry = await Leave.create(req.body);
+      res.status(201).json(newLeaveEntry);
     } catch (error) {
-      res.status(400).json({ message: 'Error creating leave request' });
+      res.status(400).json({ message: 'Error creating leave entry' });
     }
   },
 
-  getLeaveRequests: async (req, res) => {
+  getAllLeaveEntries: async (req, res) => {
     try {
-      const leaveRequests = await LeaveRequest.find();
-      res.json(leaveRequests);
+      const leaveEntries = await Leave.find();
+      res.json(leaveEntries);
     } catch (error) {
-      res.status(500).json({ message: 'Error retrieving leave requests' });
+      res.status(500).json({ message: 'Error retrieving leave entries' });
     }
   },
 
-  // Other leave-related controller methods...
+  // Add more controller methods as needed...
 };
 
 module.exports = leaveController;
