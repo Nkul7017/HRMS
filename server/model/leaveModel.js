@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const leaveSchema = new mongoose.Schema({
-    leave: {
+    leave: { 
         leave_entitlements: {
           annual_leave: {
             balance: Number,
@@ -15,9 +15,9 @@ const leaveSchema = new mongoose.Schema({
         leave_requests: [
           {
             date: Date,
-            type: String,
+            Type: String,
             status: String,
-          },
+          }
         ],
         leave_balances: {
           vacation: Number,

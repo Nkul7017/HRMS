@@ -9,3 +9,4 @@ router.post('/leaves', leaveController.createLeaveEntry);
 router.get('/leaves', leaveController.getAllLeaveEntries);
 
 module.exports = router;
+ 
