@@ -2,7 +2,8 @@ const Employee = require('../model/employeModel'); // Import your Employee model
 
 const employeeController = {
   createEmployee: async (req, res) => {
-    try {
+    console.log(req.body)
+    try { 
       const newEmployee = await Employee.create(req.body);
       res.status(201).json(newEmployee);
     } catch (error) {

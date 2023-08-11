@@ -4,10 +4,11 @@ require('./db/config')
 
 const app=express();
 app.use(express.json());
+
 const port=process.env.PORT||5000;
 
-const userRoutes = require('./routes/userRoutes');
 const employeRoutes = require('./routes/employeRoutes');
+const userRoutes = require('./routes/userRoutes');
 const payRoutes = require('./routes/payRoutes')
 const leaveRoutes = require('./routes/leaveRoutes');
 
