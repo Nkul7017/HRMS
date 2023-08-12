@@ -1,4 +1,4 @@
-const User = require('../model/userModel'); // Import your User model
+const User = require('../model/userModel'); 
 
 const userController = {
   createUser: async (req, res) => {
@@ -10,7 +10,6 @@ const userController = {
     }
   },
   
-
   getAllUsers: async (req, res) => {
     try {
       const users = await User.find();
